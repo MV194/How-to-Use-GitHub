@@ -14,9 +14,18 @@
             <h1><b>Tutorial about GitHub</b></h1>
         </header>
         <nav class="navBar">
-            <a class="index" href="index.html" style="color: #a53430">Home</a>
-            <a class="tutorial" href="tutorial.html" style="color: #a53430;">Tutorial</a>
-            <a class="contact" href="contact.html" style="color: #a53430;">Contact</a>
+            <a class="index" href="index.html" style="color: #000000">Home</a>
+            <div class="dropdown" style="height: 42.29px;">
+                <a class="tutorial" href="tutorial.html" style="color: #000000;">Tutorial &#11167;</a>
+                <div class="dropdown-content">
+                    <a href="#tutorial">Tutorial</a>
+                    <a href="#definition">What is GitHub?</a>
+                    <a href="#who">Who made GitHub?</a>
+                    <a href="#why">Why GitHub?</a>
+                    <a href="#sign">How to Sign Up?</a>
+                </div>
+            </div>
+            <a class="contact" href="contact.html" style="color: #000000;">Contact</a>
         </nav>
         <main>
             <artice>
@@ -33,15 +42,17 @@
         </main>
         <footer class="footer" style="background-color: rgb(71, 92, 173);">
             <h3><u>Contact: </u></h3>
-            <p class="auteur"><b>Author: </b> Marko</p>
-            <p class="github"><b>GitHub: </b><a style="color: rgb(255, 255, 255);" href="https://github.com/MV194" target="_blank">MV194</a></p>
-            <p class="dependance">© 2024 How To Use GitHub</p>
+            <div class="left-items">
+                <p class="auteur"><b>Author: </b> Marko</p>
+                <p class="github"><b>GitHub: </b><a style="color: rgb(255, 255, 255);" href="https://github.com/MV194" target="_blank">MV194</a></p>
+                <p class="dependance">© 2024 <a style="color: rgb(255, 255, 255);" href="https://github.com/MV194" target="_blank">How To Use GitHub</a></p>
+            </div>
             <p class="arrow"><a style="color: #ffffff;" href="#top"><u>&#8679;</u></a></p>
         </footer> 
     </body>
     <style>
         .index{
-            background-color: #3db8f6;
+            background-color: #6491bf;
             padding: 10px;
             border: 2px ridge black;
             border-radius: 5px;
@@ -53,7 +64,7 @@
             border: 0px ridge transparent;
         }
         .index:hover, .tutorial:hover, .contact:hover{
-            background-color: #3db8f6;
+            background-color: #048c45;
             padding: 10px;
             border: 2px ridge black;
             border-radius: 5px;
