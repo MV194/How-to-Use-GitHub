@@ -2,28 +2,6 @@ body{
     text-align: center;
 }
 
-#active{
-    background-color: #6491bf;
-    padding: 10px;
-    border: 2px ridge black;
-    border-radius: 5px;
-}
-.index{
-    border: 0px ridge transparent;
-}
-.tutorial{
-    border: 0px ridge transparent;
-}
-.contact{
-    border: 0px ridge transparent;
-}
-#active:hover, .tutorial:hover, .contact:hover{
-    background-color: #048c45;
-    padding: 10px;
-    border: 2px ridge black;
-    border-radius: 5px;
-}
-
 .navBar {
     display: flex;
     justify-content: space-evenly;

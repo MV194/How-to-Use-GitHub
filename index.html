@@ -6,7 +6,7 @@
             <meta name="keywords" content="HTML, CSS, JavaScript">
             <meta name="author" content="Marko">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel=“stylesheet” type=“text/css” href=“styles.css”>
+            <link rel="stylesheet" href="style.css">
             <title>Home</title>
         </head>
     <body>
@@ -14,7 +14,7 @@
             <h1><b>Tutorial about GitHub</b></h1>
         </header>
         <nav class="navBar">
-            <a id="active" class="index" href="index.html" style="color: #000000">Home</a>
+            <a class="index" href="index.html" style="color: #000000">Home</a>
             <div class="dropdown" style="height: 42.29px;">
                 <a class="tutorial" href="tutorial.html" style="color: #000000;">Tutorial &#11167;</a>
                 <div class="dropdown-content">
@@ -50,4 +50,24 @@
             <p class="arrow"><a style="color: #ffffff;" href="#top"><u>&#8679;</u></a></p>
         </footer> 
     </body>
+    <style>
+        .index{
+            background-color: #6491bf;
+            padding: 10px;
+            border: 2px ridge black;
+            border-radius: 5px;
+        }
+        .tutorial{
+            border: 0px ridge transparent;
+        }
+        .contact{
+            border: 0px ridge transparent;
+        }
+        .index:hover, .tutorial:hover, .contact:hover{
+            background-color: #048c45;
+            padding: 10px;
+            border: 2px ridge black;
+            border-radius: 5px;
+        }
+    </style>
 </html>
