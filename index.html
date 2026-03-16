@@ -1,73 +1,1376 @@
 <!DOCTYPE html>
 <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="description" content="WebSite of a tutorial about GitHub">
-            <meta name="keywords" content="HTML, CSS, JavaScript">
-            <meta name="author" content="Marko">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="styles.css">
-            <title>Home</title>
-        </head>
-    <body>
-        <header id="top">
-            <h1><b>Tutorial about GitHub</b></h1>
-        </header>
-        <nav class="navBar">
-            <a class="index" href="index.html" style="color: #000000">Home</a>
-            <div class="dropdown" style="height: 42.29px;">
-                <a class="tutorial" href="tutorial.html" style="color: #000000;">Tutorial &#11167;</a>
-                <div class="dropdown-content">
-                    <a href="#tutorial">Tutorial</a>
-                    <a href="#definition">What is GitHub?</a>
-                    <a href="#who">Who made GitHub?</a>
-                    <a href="#why">Why GitHub?</a>
-                    <a href="#sign">How to Sign Up?</a>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Use GitHub — A Beginner's Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d1117;
+    --ink2: #24292f;
+    --muted: #57606a;
+    --subtle: #8c959f;
+    --border: #d0d7de;
+    --surface: #f6f8fa;
+    --surface2: #ffffff;
+    --accent: #0969da;
+    --accent-soft: #ddf4ff;
+    --green: #1a7f37;
+    --green-soft: #dafbe1;
+    --purple: #8250df;
+    --purple-soft: #fbefff;
+    --orange: #bc4c00;
+    --orange-soft: #fff1e5;
+    --red: #cf222e;
+    --red-soft: #ffebe9;
+    --yellow: #9a6700;
+    --yellow-soft: #fff8c5;
+    --radius: 8px;
+    --radius-lg: 14px;
+    --font: 'Space Grotesk', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --shadow: 0 1px 3px rgba(13,17,23,.08), 0 4px 16px rgba(13,17,23,.04);
+    --shadow-lg: 0 8px 32px rgba(13,17,23,.12), 0 2px 8px rgba(13,17,23,.06);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    color: var(--ink);
+    background: #f0f3f7;
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 max(1.5rem, (100% - 1100px) / 2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    gap: 1.5rem;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 15px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .nav-logo svg { width: 28px; height: 28px; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: background .15s, color .15s;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover { background: var(--surface); color: var(--ink); }
+
+  .nav-cta {
+    background: var(--ink) !important;
+    color: white !important;
+    padding: 6px 14px !important;
+    border-radius: 6px !important;
+  }
+
+  .nav-cta:hover { background: var(--ink2) !important; }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  section { padding: 5rem 0; scroll-margin-top: 60px; }
+
+  /* ─── HERO ─── */
+  #hero {
+    background: linear-gradient(160deg, #0d1117 0%, #161b22 60%, #1c2128 100%);
+    padding: 7rem 0 6rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(9,105,218,.18) 0, transparent 55%),
+      radial-gradient(circle at 80% 20%, rgba(130,80,223,.12) 0, transparent 45%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(9,105,218,.2);
+    border: 1px solid rgba(9,105,218,.4);
+    color: #58a6ff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    letter-spacing: -.02em;
+  }
+
+  .hero-title .accent { color: #58a6ff; }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: #8b949e;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font);
+    text-decoration: none;
+    transition: all .2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary { background: #238636; color: white; }
+  .btn-primary:hover { background: #2ea043; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(35,134,54,.35); }
+
+  .btn-secondary {
+    background: rgba(255,255,255,.08);
+    color: white;
+    border: 1px solid rgba(255,255,255,.18);
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,.14); transform: translateY(-1px); }
+
+  /* Terminal mockup */
+  .terminal {
+    background: #010409;
+    border: 1px solid #30363d;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  }
+
+  .terminal-bar {
+    background: #161b22;
+    border-bottom: 1px solid #21262d;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .terminal-dot.red { background: #ff5f57; }
+  .terminal-dot.yellow { background: #febc2e; }
+  .terminal-dot.green { background: #28c840; }
+
+  .terminal-title { font-size: 12px; color: #8b949e; margin: 0 auto; font-family: var(--mono); }
+
+  .terminal-body { padding: 1.25rem 1.5rem; font-family: var(--mono); font-size: 13px; line-height: 2; }
+
+  .t-prompt { color: #3fb950; }
+  .t-cmd { color: #e6edf3; }
+  .t-comment { color: #8b949e; }
+  .t-output { color: #79c0ff; }
+  .t-success { color: #3fb950; }
+  .t-cursor { display: inline-block; width: 8px; height: 14px; background: #58a6ff; animation: blink 1s step-end infinite; vertical-align: middle; }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ─── SECTION HEADERS ─── */
+  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: .75rem;
+  }
+
+  .tag-blue { background: var(--accent-soft); color: var(--accent); }
+  .tag-green { background: var(--green-soft); color: var(--green); }
+  .tag-purple { background: var(--purple-soft); color: var(--purple); }
+  .tag-orange { background: var(--orange-soft); color: var(--orange); }
+
+  .section-title {
+    font-size: clamp(1.6rem, 4vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: .75rem;
+  }
+
+  .section-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+  }
+
+  /* ─── WHAT IS GITHUB ─── */
+  #what { background: #fff; }
+
+  .what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+
+  .feature-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .feature-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+  }
+
+  .feature-text strong { display: block; font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+  .feature-text p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+  .info-card {
+    padding: 1.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .info-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: .6rem; }
+  .info-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  .founder-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-top: 1rem;
+  }
+
+  .founder-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .founder-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ─── WHY GITHUB ─── */
+  #why { background: var(--surface); }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .why-card {
+    padding: 1.75rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    transition: transform .2s, box-shadow .2s;
+  }
+
+  .why-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+  .why-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 1.1rem;
+  }
+
+  .why-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .5rem; }
+  .why-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+  /* ─── SIGN UP ─── */
+  #signup { background: white; }
+
+  .steps-list { counter-reset: steps; display: flex; flex-direction: column; gap: 0; }
+
+  .step-item {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 0 1.5rem;
+    position: relative;
+  }
+
+  .step-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 27px;
+    top: 56px;
+    bottom: -10px;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .step-number {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px rgba(9,105,218,.15);
+    z-index: 1;
+  }
+
+  .step-content { padding: 14px 0 3rem; }
+  .step-item:last-child .step-content { padding-bottom: 0; }
+
+  .step-content h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .4rem; }
+  .step-content p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+  .step-screen {
+    margin-top: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 13px;
+  }
+
+  .screen-bar {
+    background: var(--border);
+    height: 28px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 6px;
+  }
+
+  .screen-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .screen-body { padding: 1rem 1.25rem; }
+
+  .form-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+  .form-label { font-size: 12px; font-weight: 600; color: var(--ink2); }
+  .form-field {
+    height: 32px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0 10px;
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+  }
+
+  .form-btn {
+    width: 100%;
+    height: 32px;
+    background: #238636;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* ─── KEY CONCEPTS ─── */
+  #concepts { background: var(--surface); }
+
+  .concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .concept-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .concept-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .concept-card.blue::before { background: var(--accent); }
+  .concept-card.green::before { background: var(--green); }
+  .concept-card.purple::before { background: var(--purple); }
+  .concept-card.orange::before { background: #e36209; }
+
+  .concept-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 4px;
+    margin-bottom: .9rem;
+  }
+
+  .concept-card.blue .concept-tag { background: var(--accent-soft); color: var(--accent); }
+  .concept-card.green .concept-tag { background: var(--green-soft); color: var(--green); }
+  .concept-card.purple .concept-tag { background: var(--purple-soft); color: var(--purple); }
+  .concept-card.orange .concept-tag { background: var(--orange-soft); color: var(--orange); }
+
+  .concept-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; }
+  .concept-card p { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+
+  .code-snippet {
+    background: var(--ink);
+    border-radius: 8px;
+    padding: .8rem 1rem;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #e6edf3;
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+
+  .code-snippet .c-green { color: #3fb950; }
+  .code-snippet .c-blue { color: #79c0ff; }
+  .code-snippet .c-orange { color: #ffa657; }
+  .code-snippet .c-comment { color: #6e7681; }
+  .code-snippet .c-yellow { color: #e3b341; }
+
+  /* ─── WORKFLOW ─── */
+  #workflow { background: white; }
+
+  .workflow-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 1rem 0;
+  }
+
+  .workflow-step {
+    flex-shrink: 0;
+    text-align: center;
+    width: 130px;
+  }
+
+  .workflow-bubble {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 10px;
+    border: 2px solid;
+  }
+
+  .workflow-step h4 { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+  .workflow-step p { font-size: 12px; color: var(--muted); line-height: 1.45; }
+
+  .workflow-arrow {
+    flex-shrink: 0;
+    color: var(--border);
+    font-size: 22px;
+    margin: 0 -6px;
+    padding-bottom: 24px;
+    user-select: none;
+  }
+
+  /* ─── TIPS ─── */
+  #tips { background: var(--surface); }
+
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .tip-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    box-shadow: var(--shadow);
+    transition: transform .2s;
+  }
+
+  .tip-card:hover { transform: translateY(-2px); }
+
+  .tip-icon {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .tip-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .tip-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ─── CHEATSHEET ─── */
+  #cheatsheet { background: white; }
+
+  .cheat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .cheat-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .cheat-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cheat-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+  .cheat-table tr:not(:last-child) td { border-bottom: 1px solid var(--border); }
+
+  .cheat-table td { padding: 9px 16px; vertical-align: top; }
+
+  .cheat-table td:first-child {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    white-space: nowrap;
+    width: 1%;
+  }
+
+  .cheat-table td:last-child { color: var(--muted); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    color: #8b949e;
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  footer a { color: #58a6ff; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  footer .footer-title { font-size: 1.1rem; font-weight: 600; color: white; margin-bottom: .5rem; }
+  footer p { font-size: 14px; line-height: 1.7; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .terminal { display: none; }
+    .what-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 1rem; gap: .75rem; }
+    .nav-links { gap: 2px; }
+    .nav-links a { font-size: 13px; padding: 4px 8px; }
+    section { padding: 3.5rem 0; }
+    .why-grid { grid-template-columns: 1fr; }
+    .workflow-visual { gap: 0; }
+    .step-item { grid-template-columns: 44px 1fr; }
+    .step-number { width: 44px; height: 44px; font-size: 1rem; }
+    .step-item:not(:last-child)::before { left: 21px; top: 44px; }
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  .nav-links a.active { background: var(--surface); color: var(--ink); font-weight: 600; }
+
+  /* Alert box */
+  .alert {
+    display: flex;
+    gap: 10px;
+    background: var(--yellow-soft);
+    border: 1px solid #e3b341;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--yellow);
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+    </svg>
+    GitHub Guide
+  </a>
+  <ul class="nav-links">
+    <li><a href="#what">What is it?</a></li>
+    <li><a href="#why">Why use it?</a></li>
+    <li><a href="#signup">Sign Up</a></li>
+    <li><a href="#concepts">Concepts</a></li>
+    <li><a href="#workflow">Workflow</a></li>
+    <li><a href="#cheatsheet">Cheatsheet</a></li>
+    <li><a href="https://github.com" target="_blank" class="nav-cta">Open GitHub ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">
+          <span>⚡</span> Beginner-Friendly
+        </div>
+        <h1 class="hero-title">
+          Master <span class="accent">GitHub</span><br>from scratch
+        </h1>
+        <p class="hero-sub">
+          GitHub is the world's leading platform for code collaboration. Whether you're a developer, writer, or total beginner — this guide walks you through everything step by step.
+        </p>
+        <div class="hero-buttons">
+          <a href="#signup" class="btn btn-primary">
+            <span>🚀</span> Get Started
+          </a>
+          <a href="#concepts" class="btn btn-secondary">
+            <span>📖</span> Learn the Basics
+          </a>
+        </div>
+      </div>
+
+      <!-- Terminal mockup -->
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dot red"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+          <span class="terminal-title">Terminal</span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="t-prompt">$ </span><span class="t-cmd">git init my-project</span></div>
+          <div><span class="t-success">✓ Initialized empty Git repository</span></div>
+          <div style="margin-top: 8px"><span class="t-prompt">$ </span><span class="t-cmd">git add .</span></div>
+          <div><span class="t-prompt">$ </span><span class="t-cmd">git commit -m "Initial commit"</span></div>
+          <div><span class="t-success">✓ [main] 3 files changed</span></div>
+          <div style="margin-top: 8px"><span class="t-prompt">$ </span><span class="t-cmd">git push origin main</span></div>
+          <div><span class="t-output">Enumerating objects: 5, done.</span></div>
+          <div><span class="t-output">Writing objects: 100% (5/5)</span></div>
+          <div><span class="t-success">✓ Branch 'main' → 'origin/main'</span></div>
+          <div style="margin-top: 8px"><span class="t-prompt">$ </span><span class="t-cursor"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS GITHUB -->
+<section id="what">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag tag-blue">What is GitHub?</div>
+      <h2 class="section-title">A home for your code — and your team</h2>
+      <p class="section-sub">GitHub is a web platform built on Git, the open-source version control system. Think of it as Google Docs, but for code.</p>
+    </div>
+
+    <div class="what-grid">
+      <div>
+        <ul class="feature-list">
+          <li class="feature-item">
+            <div class="feature-icon" style="background:#ddf4ff">🗂️</div>
+            <div class="feature-text">
+              <strong>Version Control</strong>
+              <p>Every change is tracked. Roll back to any previous version of your project at any time.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-icon" style="background:#dafbe1">🤝</div>
+            <div class="feature-text">
+              <strong>Collaboration</strong>
+              <p>Multiple people can work on the same project simultaneously without overwriting each other.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-icon" style="background:#fbefff">💬</div>
+            <div class="feature-text">
+              <strong>Code Review</strong>
+              <p>Teammates can comment on, suggest, and approve changes before they're merged.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-icon" style="background:#fff8c5">🌐</div>
+            <div class="feature-text">
+              <strong>Open Source Hub</strong>
+              <p>Over 100 million developers share and contribute to public projects worldwide.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-icon" style="background:#fff1e5">⚙️</div>
+            <div class="feature-text">
+              <strong>Automation</strong>
+              <p>GitHub Actions lets you automatically test, build, and deploy your code on every push.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div class="info-card">
+          <h3>🕐 A brief history</h3>
+          <p>GitHub was created by <strong>Chris Wanstrath, P.J. Hyett, Tom Preston-Werner, and Scott Chacon</strong> using Ruby on Rails. It launched in <strong>February 2008</strong> and was acquired by Microsoft in 2018 for $7.5 billion.</p>
+          <div class="founder-row">
+            <div class="founder-chip">
+              <div class="founder-avatar" style="background:#ddf4ff;color:#0969da">CW</div>
+              Chris W.
+            </div>
+            <div class="founder-chip">
+              <div class="founder-avatar" style="background:#dafbe1;color:#1a7f37">PJ</div>
+              P.J. Hyett
+            </div>
+            <div class="founder-chip">
+              <div class="founder-avatar" style="background:#fbefff;color:#8250df">TP</div>
+              Tom P.
+            </div>
+            <div class="founder-chip">
+              <div class="founder-avatar" style="background:#fff8c5;color:#9a6700">SC</div>
+              Scott C.
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3>🆚 Git vs. GitHub</h3>
+          <p><strong>Git</strong> is the version control software that runs on your computer. <strong>GitHub</strong> is a cloud platform that hosts your Git repositories online, making them shareable and collaborative.</p>
+        </div>
+
+        <div class="info-card" style="background:#f0f9ff;border-color:#b6e0fe;">
+          <h3>👥 Not just for developers</h3>
+          <p>Writers, designers, scientists, and students all use GitHub to manage documents, research, design files, and collaborative projects.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHY GITHUB -->
+<section id="why">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag tag-green">Why GitHub?</div>
+      <h2 class="section-title">Why millions of teams rely on it</h2>
+      <p class="section-sub">From solo projects to large enterprise teams, GitHub solves real problems that every collaborator faces.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon" style="background:#ddf4ff">🔍</div>
+        <h3>Never lose your work</h3>
+        <p>Every version of your project is saved in the cloud. Accidentally deleted something? GitHub has it. Hard drive crashed? GitHub has it.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#dafbe1">⚡</div>
+        <h3>Work without conflicts</h3>
+        <p>Teams can work on different features simultaneously using branches. Changes are merged when ready, eliminating duplicate work.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#fbefff">📋</div>
+        <h3>Built-in project management</h3>
+        <p>Issues, milestones, and project boards let you track bugs, plan features, and organize work — all in one place.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#fff8c5">🚀</div>
+        <h3>Automated workflows</h3>
+        <p>GitHub Actions automatically tests your code on every commit. Ship with confidence knowing nothing is broken.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#fff1e5">🌍</div>
+        <h3>Global community</h3>
+        <p>Access millions of open-source projects. Learn from real codebases, report bugs, and contribute back to the community.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon" style="background:#ffebe9">🛡️</div>
+        <h3>Security built in</h3>
+        <p>Automated vulnerability scanning, secret detection, and code review workflows keep your project secure by default.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SIGN UP -->
+<section id="signup">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag tag-blue">Getting Started</div>
+      <h2 class="section-title">Create your GitHub account</h2>
+      <p class="section-sub">It only takes a few minutes. Follow these steps to get up and running.</p>
+    </div>
+
+    <div style="max-width: 680px; margin: 0 auto;">
+      <div class="steps-list">
+
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Go to github.com and click "Sign Up"</h3>
+            <p>Open your browser and navigate to <a href="https://github.com" target="_blank" style="color: var(--accent)">github.com</a>. You'll see a big green "Sign Up" button on the homepage. Click it.</p>
+            <div class="step-screen">
+              <div class="screen-bar">
+                <div class="screen-dot" style="background:#ff5f57"></div>
+                <div class="screen-dot" style="background:#febc2e"></div>
+                <div class="screen-dot" style="background:#28c840"></div>
+              </div>
+              <div class="screen-body">
+                <div class="form-row">
+                  <div class="form-label">Enter your email address</div>
+                  <div class="form-field" style="color: #57606a">your@email.com</div>
                 </div>
+                <div class="form-row">
+                  <div class="form-label">Create a password</div>
+                  <div class="form-field">••••••••••</div>
+                </div>
+                <div class="form-row">
+                  <div class="form-label">Enter a username</div>
+                  <div class="form-field" style="color: #57606a">cooldev2024</div>
+                </div>
+                <div class="form-btn">Create account</div>
+              </div>
             </div>
-            <a class="contact" href="contact.html" style="color: #000000;">Contact</a>
-        </nav>
-        <main>
-            <artice>
-                <section>
-                    <h2><b>Welcome !!!</b></h2>
-                    <p>Hello, in this website you will find out how to use GitHub since, personnaly GitHub is the best web platform to have real-time code sharing, merging, and project management.</p>
-                </section>
-                <aside>
-                    <img>
-                    <img>
-                    <img>
-                </aside>
-            </artice>
-        </main>
-        <footer class="footer" style="background-color: rgb(71, 92, 173);">
-            <h3><u>Contact: </u></h3>
-            <div class="left-items">
-                <p class="auteur"><b>Author: </b> Marko</p>
-                <p class="github"><b>GitHub: </b><a style="color: rgb(255, 255, 255);" href="https://github.com/MV194" target="_blank">MV194</a></p>
-                <p class="dependance">© 2024 <a style="color: rgb(255, 255, 255);" href="https://mv194.github.io/How-to-Use-GitHub/" target="_blank">How To Use GitHub</a></p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Verify your email address</h3>
+            <p>GitHub will send a verification email. Open it and click the confirmation link. Check your spam folder if you don't see it within a minute.</p>
+            <div class="alert">
+              <span>💡</span>
+              <span>Use a real email address — you'll need it to reset your password and receive notifications.</span>
             </div>
-            <p class="arrow"><a style="color: #ffffff;" href="#top"><u>&#8679;</u></a></p>
-        </footer> 
-    </body>
-    <style>
-        .index{
-            background-color: #6491bf;
-            padding: 10px;
-            border: 2px ridge black;
-            border-radius: 5px;
-        }
-        .tutorial{
-            border: 0px ridge transparent;
-        }
-        .contact{
-            border: 0px ridge transparent;
-        }
-        .index:hover, .tutorial:hover, .contact:hover{
-            background-color: #048c45;
-            padding: 10px;
-            border: 2px ridge black;
-            border-radius: 5px;
-        }
-    </style>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Complete the setup wizard</h3>
+            <p>GitHub will ask a few questions about your role (student, developer, etc.) and what you plan to use it for. Answer honestly — it helps personalize your experience.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Create your first repository</h3>
+            <p>A repository (or "repo") is like a folder for your project. Click the green "New" button on your dashboard, give it a name, optionally add a README file, and click "Create repository".</p>
+            <div class="step-screen">
+              <div class="screen-bar">
+                <div class="screen-dot" style="background:#ff5f57"></div>
+                <div class="screen-dot" style="background:#febc2e"></div>
+                <div class="screen-dot" style="background:#28c840"></div>
+              </div>
+              <div class="screen-body" style="font-size: 13px;">
+                <div style="font-weight: 600; margin-bottom: 10px; color: #24292f;">Create a new repository</div>
+                <div class="form-row">
+                  <div class="form-label">Repository name *</div>
+                  <div class="form-field" style="color: #1a7f37; border-color: #2da44e;">my-first-project</div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                  <div style="flex:1; padding: 8px; border: 2px solid #0969da; border-radius: 6px; font-size: 12px; font-weight: 600; color: #0969da; background: #ddf4ff;">⬤ Public</div>
+                  <div style="flex:1; padding: 8px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; color: #57606a;">○ Private</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #57606a; padding: 6px 0; border-top: 1px solid var(--border);">
+                  <span>☑</span> Add a README file
+                </div>
+                <div class="form-btn" style="margin-top: 10px;">Create repository</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Install Git on your computer (optional but recommended)</h3>
+            <p>To work with GitHub locally, download Git from <a href="https://git-scm.com" target="_blank" style="color: var(--accent)">git-scm.com</a>. You can also use GitHub Desktop for a visual interface, or work entirely in the browser for simple edits.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KEY CONCEPTS -->
+<section id="concepts">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag tag-purple">Key Concepts</div>
+      <h2 class="section-title">The vocabulary you need to know</h2>
+      <p class="section-sub">These are the fundamental ideas behind GitHub. Learn these and everything else will click.</p>
+    </div>
+
+    <div class="concepts-grid">
+
+      <div class="concept-card blue">
+        <div class="concept-tag">Repository</div>
+        <h3>Your project's home</h3>
+        <p>A repository is a folder that contains all your project files, their history, and metadata. Every project lives in its own repo.</p>
+        <div class="code-snippet">
+          <div><span class="c-comment"># Create a new repo locally</span></div>
+          <div><span class="c-green">git</span> <span class="c-blue">init</span> my-project</div>
+          <div><span class="c-comment"># or clone an existing one</span></div>
+          <div><span class="c-green">git</span> <span class="c-blue">clone</span> <span class="c-orange">github.com/user/repo</span></div>
+        </div>
+      </div>
+
+      <div class="concept-card green">
+        <div class="concept-tag">Commit</div>
+        <h3>A saved snapshot</h3>
+        <p>A commit is a snapshot of your project at a specific moment. Each commit has a message explaining what changed and why.</p>
+        <div class="code-snippet">
+          <div><span class="c-comment"># Stage your changes</span></div>
+          <div><span class="c-green">git</span> <span class="c-blue">add</span> .</div>
+          <div><span class="c-comment"># Save a snapshot</span></div>
+          <div><span class="c-green">git</span> <span class="c-blue">commit</span> <span class="c-orange">-m</span> <span class="c-yellow">"Fix login bug"</span></div>
+        </div>
+      </div>
+
+      <div class="concept-card purple">
+        <div class="concept-tag">Branch</div>
+        <h3>A parallel timeline</h3>
+        <p>A branch is an isolated copy of your project where you can experiment or build features without affecting the main codebase.</p>
+        <div class="code-snippet">
+          <div><span class="c-comment"># Create + switch to a branch</span></div>
+          <div><span class="c-green">git</span> <span class="c-blue">checkout</span> <span class="c-orange">-b</span> new-feature</div>
+          <div><span class="c-comment"># Merge it back when done</span></div>
+          <div><span class="c-green">git</span> <span class="c-blue">merge</span> new-feature</div>
+        </div>
+      </div>
+
+      <div class="concept-card orange">
+        <div class="concept-tag">Pull Request</div>
+        <h3>A request to merge</h3>
+        <p>A Pull Request (PR) is how you propose changes to a repo. Teammates can review, comment, and approve before the code is merged.</p>
+        <div class="code-snippet">
+          <div><span class="c-comment"># Push your branch first</span></div>
+          <div><span class="c-green">git</span> <span class="c-blue">push</span> origin new-feature</div>
+          <div><span class="c-comment"># Then open a PR on GitHub.com</span></div>
+          <div style="color:#8b949e">→ New pull request → Review → Merge</div>
+        </div>
+      </div>
+
+      <div class="concept-card blue">
+        <div class="concept-tag">Fork</div>
+        <h3>Your own copy of any repo</h3>
+        <p>Forking creates your personal copy of someone else's repository. You can experiment freely, then propose changes back via a Pull Request.</p>
+        <div class="code-snippet">
+          <div><span class="c-comment"># After forking on GitHub.com:</span></div>
+          <div><span class="c-green">git</span> <span class="c-blue">clone</span> <span class="c-orange">github.com/you/forked-repo</span></div>
+          <div><span class="c-comment"># Make changes, push, open PR</span></div>
+          <div style="color:#8b949e">→ upstream repo ← your fork</div>
+        </div>
+      </div>
+
+      <div class="concept-card green">
+        <div class="concept-tag">Push &amp; Pull</div>
+        <h3>Syncing with the cloud</h3>
+        <p><strong>Push</strong> uploads your local commits to GitHub. <strong>Pull</strong> downloads the latest changes from GitHub to your machine.</p>
+        <div class="code-snippet">
+          <div><span class="c-comment"># Upload your commits</span></div>
+          <div><span class="c-green">git</span> <span class="c-blue">push</span> origin main</div>
+          <div><span class="c-comment"># Download latest changes</span></div>
+          <div><span class="c-green">git</span> <span class="c-blue">pull</span> origin main</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WORKFLOW -->
+<section id="workflow">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag tag-orange">Workflow</div>
+      <h2 class="section-title">The standard GitHub workflow</h2>
+      <p class="section-sub">Most teams follow this cycle. Once you've done it a few times, it becomes second nature.</p>
+    </div>
+
+    <div class="workflow-visual">
+      <div class="workflow-step">
+        <div class="workflow-bubble" style="background:#ddf4ff;border-color:#0969da;color:#0969da">🍴</div>
+        <h4>Fork or Clone</h4>
+        <p>Get the project onto your machine</p>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="workflow-bubble" style="background:#fbefff;border-color:#8250df;color:#8250df">🌿</div>
+        <h4>Branch</h4>
+        <p>Create a branch for your feature</p>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="workflow-bubble" style="background:#fff8c5;border-color:#9a6700;color:#9a6700">✏️</div>
+        <h4>Code</h4>
+        <p>Make your changes locally</p>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="workflow-bubble" style="background:#dafbe1;border-color:#1a7f37;color:#1a7f37">💾</div>
+        <h4>Commit</h4>
+        <p>Save snapshots as you go</p>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="workflow-bubble" style="background:#fff1e5;border-color:#bc4c00;color:#bc4c00">⬆️</div>
+        <h4>Push</h4>
+        <p>Upload your branch to GitHub</p>
+      </div>
+      <div class="workflow-arrow">→</div>
+      <div class="workflow-step">
+        <div class="workflow-bubble" style="background:#ffebe9;border-color:#cf222e;color:#cf222e">🔀</div>
+        <h4>Pull Request</h4>
+        <p>Request a review and merge</p>
+      </div>
+    </div>
+
+    <div style="max-width: 700px; margin: 3rem auto 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;">
+      <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); font-weight: 600; font-size: 15px;">
+        📋 A typical day using GitHub
+      </div>
+      <div style="padding: 1.25rem 1.5rem; font-size: 14px; color: var(--muted); line-height: 1.8;">
+        <p>You start by pulling the latest changes with <code style="background:#f6f8fa;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:12px;color:#0969da">git pull</code> to make sure you're up to date. Then you create a branch for the feature you're working on. You write code, committing often with descriptive messages. When done, you push your branch and open a Pull Request. A teammate reviews it, leaves comments, and you make tweaks. Once approved, it gets merged — and you start the cycle again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TIPS -->
+<section id="tips">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag tag-green">Pro Tips</div>
+      <h2 class="section-title">Habits of great GitHub users</h2>
+      <p class="section-sub">Small habits that make a huge difference in your day-to-day workflow.</p>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon" style="background:#ddf4ff">✍️</div>
+        <div>
+          <h4>Write meaningful commit messages</h4>
+          <p>Use the format: <em>"Add user login feature"</em> or <em>"Fix broken navbar on mobile"</em>. Future-you will thank present-you.</p>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon" style="background:#dafbe1">⚡</div>
+        <div>
+          <h4>Commit early and often</h4>
+          <p>Don't wait until a feature is finished. Commit small, working chunks. It's easier to track down bugs and easier to roll back.</p>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon" style="background:#fbefff">🌿</div>
+        <div>
+          <h4>Always work on a branch</h4>
+          <p>Never commit directly to <code style="background:#f6f8fa;padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:11px">main</code>. Branches are free and keep your history clean.</p>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon" style="background:#fff8c5">📝</div>
+        <div>
+          <h4>Write a README</h4>
+          <p>Every project should have a README.md explaining what it does, how to install it, and how to use it. It's the first thing visitors see.</p>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon" style="background:#fff1e5">🔒</div>
+        <div>
+          <h4>Never commit secrets</h4>
+          <p>API keys, passwords, and tokens must never go into a repo. Use <code style="background:#f6f8fa;padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:11px">.env</code> files and add them to <code style="background:#f6f8fa;padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:11px">.gitignore</code>.</p>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon" style="background:#ffebe9">👀</div>
+        <div>
+          <h4>Pull before you push</h4>
+          <p>Always run <code style="background:#f6f8fa;padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:11px">git pull</code> before pushing to avoid merge conflicts with your teammates' work.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CHEATSHEET -->
+<section id="cheatsheet">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag tag-blue">Quick Reference</div>
+      <h2 class="section-title">Git command cheatsheet</h2>
+      <p class="section-sub">Bookmark this page. These are the commands you'll use every single day.</p>
+    </div>
+
+    <div class="cheat-grid">
+
+      <div class="cheat-group">
+        <div class="cheat-header" style="background:#ddf4ff;color:#0969da">
+          <span>🚀</span> Setup &amp; Init
+        </div>
+        <table class="cheat-table">
+          <tr><td>git init</td><td>Initialize a new local repository</td></tr>
+          <tr><td>git clone [url]</td><td>Clone a remote repository locally</td></tr>
+          <tr><td>git config --global user.name</td><td>Set your global username</td></tr>
+          <tr><td>git config --global user.email</td><td>Set your global email</td></tr>
+        </table>
+      </div>
+
+      <div class="cheat-group">
+        <div class="cheat-header" style="background:#dafbe1;color:#1a7f37">
+          <span>💾</span> Staging &amp; Commits
+        </div>
+        <table class="cheat-table">
+          <tr><td>git status</td><td>Show the state of your working directory</td></tr>
+          <tr><td>git add .</td><td>Stage all changes for commit</td></tr>
+          <tr><td>git add [file]</td><td>Stage a specific file</td></tr>
+          <tr><td>git commit -m "msg"</td><td>Commit with a message</td></tr>
+          <tr><td>git log --oneline</td><td>View compact commit history</td></tr>
+        </table>
+      </div>
+
+      <div class="cheat-group">
+        <div class="cheat-header" style="background:#fbefff;color:#8250df">
+          <span>🌿</span> Branches
+        </div>
+        <table class="cheat-table">
+          <tr><td>git branch</td><td>List all local branches</td></tr>
+          <tr><td>git branch [name]</td><td>Create a new branch</td></tr>
+          <tr><td>git checkout [name]</td><td>Switch to a branch</td></tr>
+          <tr><td>git checkout -b [name]</td><td>Create and switch in one step</td></tr>
+          <tr><td>git merge [branch]</td><td>Merge a branch into current</td></tr>
+          <tr><td>git branch -d [name]</td><td>Delete a branch</td></tr>
+        </table>
+      </div>
+
+      <div class="cheat-group">
+        <div class="cheat-header" style="background:#fff1e5;color:#bc4c00">
+          <span>☁️</span> Remote &amp; Sync
+        </div>
+        <table class="cheat-table">
+          <tr><td>git remote -v</td><td>List remote connections</td></tr>
+          <tr><td>git fetch</td><td>Download changes without merging</td></tr>
+          <tr><td>git pull origin main</td><td>Pull latest changes from main</td></tr>
+          <tr><td>git push origin [branch]</td><td>Push a branch to GitHub</td></tr>
+          <tr><td>git push -u origin main</td><td>Push and set upstream tracking</td></tr>
+        </table>
+      </div>
+
+      <div class="cheat-group">
+        <div class="cheat-header" style="background:#ffebe9;color:#cf222e">
+          <span>↩️</span> Undo &amp; Fix
+        </div>
+        <table class="cheat-table">
+          <tr><td>git restore [file]</td><td>Discard changes in working directory</td></tr>
+          <tr><td>git reset HEAD [file]</td><td>Unstage a file</td></tr>
+          <tr><td>git revert [commit]</td><td>Undo a commit by creating a new one</td></tr>
+          <tr><td>git stash</td><td>Temporarily shelve your changes</td></tr>
+          <tr><td>git stash pop</td><td>Restore stashed changes</td></tr>
+        </table>
+      </div>
+
+      <div class="cheat-group">
+        <div class="cheat-header" style="background:#fff8c5;color:#9a6700">
+          <span>🔍</span> Inspect &amp; Compare
+        </div>
+        <table class="cheat-table">
+          <tr><td>git diff</td><td>Show unstaged changes</td></tr>
+          <tr><td>git diff --staged</td><td>Show staged changes</td></tr>
+          <tr><td>git log --graph</td><td>Visual branch history</td></tr>
+          <tr><td>git show [commit]</td><td>Show details of a commit</td></tr>
+          <tr><td>git blame [file]</td><td>Show who changed each line</td></tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-title">How to Use GitHub</div>
+    <p style="margin-bottom: .5rem;">A beginner-friendly guide by <a href="https://github.com/MV194" target="_blank">Marko (MV194)</a></p>
+    <p>© 2024 · Built with ❤️ · <a href="https://github.com" target="_blank">Visit GitHub →</a></p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    const sections = ['hero','what','why','signup','concepts','workflow','cheatsheet'];
+    const links = {};
+    sections.forEach(id => {
+      const el = document.querySelector('.nav-links a[href="#' + id + '"]');
+      if (el) links[id] = el;
+    });
+
+    function onScroll() {
+      let current = 'hero';
+      sections.forEach(id => {
+        const sec = document.getElementById(id);
+        if (sec && window.scrollY >= sec.offsetTop - 80) current = id;
+      });
+      Object.keys(links).forEach(id => links[id].classList.toggle('active', id === current));
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+</body>
 </html>
